@@ -2,7 +2,8 @@
 
 This tutorial walks you through predicting the 3D structure of a small protein from scratch using the BV-BRC Protein Structure Prediction Service. We'll use **crambin** — a 46-amino-acid plant seed protein and one of the classic "hello-world" structures in computational biology. Its small size means every tool you choose returns a result in minutes, which makes it ideal for learning.
 
-## What you'll do
+## Tutorial Overview
+In this tutorial, you will:
 
 1. Sign in to BV-BRC.
 2. Upload a FASTA file with the crambin sequence to your workspace.
@@ -15,11 +16,13 @@ This tutorial walks you through predicting the 3D structure of a small protein f
 - A free BV-BRC account ([register here](https://www.bv-brc.org/register/))
 - A web browser
 
-You do **not** need a GPU, an MSA, or any local software. Everything happens on the BV-BRC servers.
+As with all BV-BRC services, you do **not** need any specialized hardware or locally installed software. All analyses are preformed on the BV-BRC servers and accessed via the BV-BRC web or command line interfaces.
 
 > **Running locally?** If you're running a local copy of the BV-BRC web UI, open `http://localhost:3000/app/PredictStructure` instead of the production URL below. The form, the workspace, and the result viewer behave identically — the job runs on the real BV-BRC backend either way.
 
-## Background — what we're predicting
+## Background — A Breif Introduction to Protein Structure Prediction
+
+Protein structure prediction introduces concepts that may be unfaimilar to users who are new to protein biology. This tutorial focuses on the biological intrepretation and use of the Protein Structure Prediction service. For additional background on the underlying prediction methods, see the Protein Folding Primer (companion doc).
 
 Crambin is a hydrophobic 46-residue protein from the *Crambe abyssinica* seed. Its experimental structure (PDB ID `1CRN`) has been solved at near-atomic resolution, which means we have ground truth to compare against. The sequence:
 
@@ -27,15 +30,13 @@ Crambin is a hydrophobic 46-residue protein from the *Crambe abyssinica* seed. I
 TTCCPSIVARSNFNVCRLPGTPEALCATYTGCIIIPGATCPGDYAN
 ```
 
-It contains three disulfide bonds (Cys3–Cys40, Cys4–Cys32, Cys16–Cys26) and forms a compact α-helix / β-sheet fold. If a tool gets crambin wrong, something is seriously broken; if it gets it right, that tells you very little — crambin is in every training set. We use it here because it's small and fast, not because it's a hard test.
+It contains three disulfide bonds (Cys3–Cys40, Cys4–Cys32, Cys16–Cys26) and forms a compact α-helix / β-sheet fold. Due to its small size and well-characterized structure, cambrin is commonly used as an introductory example. It's short sequence allows predictions to complete quickly, making it well suited for tutorial.
 
-For a deeper introduction to what the prediction is actually doing, see the Protein Folding Primer (companion doc).
+
 
 ## Step 1 — Sign in
 
-Open <https://alpha.bv-brc.org> in your browser. Click **Sign In** in the top-right corner.
-
-![BV-BRC landing page with Sign In highlighted](./images/01_signin.png "BV-BRC landing page with Sign In highlighted")
+Open <https://www.bv-brc.org> in your browser. Click **Sign In** in the top-right corner.
 
 Sign in with your BV-BRC credentials.
 
@@ -63,7 +64,7 @@ The file appears in the folder once upload completes.
 
 From the main menu, choose **Services** → **Protein Tools** → **Protein Structure Prediction**.
 
-Or go directly to: <https://alpha.bv-brc.org/app/PredictStructure>
+Or go directly to: <https://www.bv-brc.org/app/PredictStructure>
 
 You should see the input form:
 
@@ -204,4 +205,4 @@ The underlying structure file (`predictions/rank_1.pdb`) still downloads and ope
 
 - [Quick Reference](/quick_references/services/predict_structure_service) — every form field documented
 - [Recipes](/tutorial/predict_structure/predict_structure_recipes) — patterns for multi-chain complexes, ligands, MSAs, reruns
-- [Protein Structure Prediction Service](https://bv-brc.org/app/PredictStructure) — open the form
+- [Protein Structure Prediction Service](https://www.bv-brc.org/app/PredictStructure) — open the form
