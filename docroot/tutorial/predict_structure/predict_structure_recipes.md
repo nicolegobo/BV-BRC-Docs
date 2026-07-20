@@ -1,8 +1,8 @@
 # Protein Structure Prediction — Recipes
 
-This is a cookbook for the Protein Structure Prediction service. If you're new to the service, start with the [Tutorial](/tutorial/predict_structure/predict_structure) — it walks you through a single-protein prediction end-to-end. Once you're comfortable with the form, the recipes here cover the patterns that go beyond the defaults: multi-chain complexes, ligands, MSAs you supply or have computed, and reruns.
+This page provides example workflows for the Protein Structure Prediction Service. If you are new to the service, start with the [Tutorial](/tutorial/predict_structure/predict_structure), which describes a single-protein prediction workflow end to end. After you are familiar with the form, the recipes on this page cover common use cases that extend beyond the defaults, including multi-chain complexes, ligands, supplied or computed MSAs, and reruns.
 
-For the full reference of every form field see the [Quick Reference Guide](/quick_references/services/predict_structure_service).
+For a complete reference for every form field, see the [Quick Reference Guide](/quick_references/services/predict_structure_service).
 
 ## Choosing a recipe
 
@@ -18,7 +18,7 @@ For the full reference of every form field see the [Quick Reference Guide](/quic
 
 ## Recipe 1 — Multi-chain protein complex with Boltz
 
-**Goal:** predict the structure of a complex (e.g. an antibody Fv with heavy + light chains, or a homo-tetramer).
+**Goal:** predict the structure of a complex (for example, an antibody Fv with heavy and light chains, or a homo-tetramer).
 
 **Inputs:** one FASTA file with multiple `>` records — each record becomes one chain. Soft limit: 26 chains and 10,000 total residues per job.
 
@@ -39,7 +39,7 @@ DIQMTQSPSSLSASVGDRVTITCRASQDIS...
 | Other inputs | leave empty |
 | Job Name | something descriptive — e.g. `antibody-fv-boltz` |
 
-**Why Boltz for complexes?** Boltz, OpenFold 3, and Chai-1 are all AF3-class diffusion models with strong multimer performance. Boltz is the auto-selector's first choice when an MSA is available; OpenFold and Chai are reasonable swaps if you want to compare.
+**Why Boltz for complexes?** Boltz, OpenFold 3, and Chai-1 are all AF3-class diffusion models with strong multimer performance. Boltz is typically the auto-selector's first choice when an MSA is available; OpenFold and Chai are reasonable alternatives if you want to compare methods.
 
 ## Recipe 2 — Protein with a cofactor (CCD code)
 
@@ -63,7 +63,7 @@ Common CCD codes: `ATP`, `ADP`, `GTP`, `NAD`, `FAD`, `HEM`, `MG`, `ZN`, `CA`. Gl
 
 ## Recipe 3 — Protein with a SMILES ligand
 
-**Goal:** fold a protein with a novel small molecule (no CCD code yet) in place — e.g. a drug candidate.
+**Goal:** fold a protein with a novel small molecule (for which no CCD code is available) in place, such as a drug candidate.
 
 **Inputs:** the protein FASTA plus the molecule as a SMILES string.
 
@@ -77,13 +77,13 @@ Common CCD codes: `ATP`, `ADP`, `GTP`, `NAD`, `FAD`, `HEM`, `MG`, `ZN`, `CA`. Gl
 | Ligands → input | the SMILES (e.g. `CCO` for ethanol, one per line for multiple) |
 | MSA Source | *Use MSA Server or Service* |
 
-The form validates SMILES as you type; the first invalid line is reported inline. Standard SMILES syntax — branching parentheses must balance, atoms come from the typical organic set + halogens.
+The form validates SMILES as you type, and reports the first invalid line inline. Standard SMILES syntax is required; for example, branching parentheses must balance, and atoms must be drawn from the typical organic set plus halogens.
 
 **Tip:** if you have the molecule's 2D structure in another tool (e.g. RDKit, ChemDraw), export to canonical SMILES first.
 
 ## Recipe 4 — Let BV-BRC compute the MSA with ColabFold
 
-**Goal:** predict a structure that needs an MSA, but you don't have one and don't want to build it yourself.
+**Goal:** predict a structure that requires an MSA, but you do not have one and do not want to build it yourself.
 
 **Form settings:**
 
@@ -95,7 +95,7 @@ The form validates SMILES as you type; the first invalid line is reported inline
 
 The service runs MMseqs2 against UniRef + ColabFoldDB and feeds the result to the selected engine. Expect 30 s – 3 min of extra wall time before folding starts.
 
-**When *not* to use this:** if you already have an MSA from your own pipeline (JackHMMER, ColabFold local, etc.), upload it instead — your MSA is likely deeper / better filtered than the server's defaults.
+**When not to use this:** if you already have an MSA from your own pipeline (for example, JackHMMER or a local ColabFold run), upload it instead. A curated MSA is often deeper or better filtered than the server defaults.
 
 ## Recipe 5 — Uploaded MSA with Boltz, OpenFold, or Chai
 
@@ -118,7 +118,7 @@ The service auto-converts A3M ↔ Parquet for the engine that needs it. Stockhol
 
 ## Recipe 6 — Rerun an existing job with a different tool
 
-**Goal:** you've run a fold and want to compare a different engine on the same inputs.
+**Goal:** compare a different engine on the same inputs after an initial run.
 
 1. Open the completed job in your workspace.
 2. Click the **Rerun** button in the Action Bar.
@@ -127,11 +127,11 @@ The service auto-converts A3M ↔ Parquet for the engine that needs it. Stockhol
 5. Update the **Job Name** (the default will collide otherwise — `crambin-esmfold` → `crambin-boltz`, etc.).
 6. **Submit**.
 
-This is the cleanest way to A/B-test engines without rebuilding the form from scratch.
+This is a straightforward way to compare engines without reconstructing the form from scratch.
 
 ## What's not on the form
 
-These advanced knobs are *not* surfaced on the web form. Reach them via the CLI or JSON-RPC API:
+These advanced parameters are not exposed on the web form. Use the CLI or JSON-RPC API to access them:
 
 - `num_samples` — how many independent predictions to generate (default 5; useful for assessing ensemble disagreement)
 - `num_recycles` — recycling iterations (engine-specific defaults; AlphaFold defaults to 3)

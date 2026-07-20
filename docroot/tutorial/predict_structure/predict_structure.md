@@ -1,6 +1,6 @@
 # Protein Structure Prediction Tutorial
 
-This tutorial walks you through predicting the 3D structure of a small protein from scratch using the BV-BRC Protein Structure Prediction Service. We'll use **crambin** — a 46-amino-acid plant seed protein and one of the classic "hello-world" structures in computational biology. Its small size means every tool you choose returns a result in minutes, which makes it ideal for learning.
+This tutorial describes how to predict the 3D structure of a small protein using the BV-BRC Protein Structure Prediction Service. The example uses **crambin**, a 46-amino-acid plant seed protein that is commonly used as a simple test case because it is well characterized and typically produces results quickly.
 
 ## Tutorial Overview
 In this tutorial, you will:
@@ -16,21 +16,21 @@ In this tutorial, you will:
 - A free BV-BRC account ([register here](https://www.bv-brc.org/register/))
 - A web browser
 
-As with all BV-BRC services, you do **not** need any specialized hardware or locally installed software. All analyses are preformed on the BV-BRC servers and accessed via the BV-BRC web or command line interfaces.
+As with other BV-BRC services, you do **not** need specialized hardware or locally installed software. All analyses are performed on BV-BRC servers and can be accessed through the BV-BRC web or command line interfaces.
 
 > **Running locally?** If you're running a local copy of the BV-BRC web UI, open `http://localhost:3000/app/PredictStructure` instead of the production URL below. The form, the workspace, and the result viewer behave identically — the job runs on the real BV-BRC backend either way.
 
-## Background — A Breif Introduction to Protein Structure Prediction
+## Background — A Brief Introduction to Protein Structure Prediction
 
-Protein structure prediction introduces concepts that may be unfaimilar to users who are new to protein biology. This tutorial focuses on the biological intrepretation and use of the Protein Structure Prediction service. For additional background on the underlying prediction methods, see the Protein Folding Primer (companion doc).
+Protein structure prediction introduces concepts that may be unfamiliar to users who are new to protein biology. This tutorial focuses on the biological interpretation of the results and on using the Protein Structure Prediction Service. Additional background on the underlying prediction methods is available in the Protein Folding Primer (companion document).
 
-Crambin is a hydrophobic 46-residue protein from the *Crambe abyssinica* seed. Its experimental structure (PDB ID `1CRN`) has been solved at near-atomic resolution, which means we have ground truth to compare against. The sequence:
+Crambin is a hydrophobic 46-residue protein from the *Crambe abyssinica* seed. Its experimental structure (PDB ID `1CRN`) has been solved at near-atomic resolution, providing a reference for comparison. The sequence:
 
 ```
 TTCCPSIVARSNFNVCRLPGTPEALCATYTGCIIIPGATCPGDYAN
 ```
 
-It contains three disulfide bonds (Cys3–Cys40, Cys4–Cys32, Cys16–Cys26) and forms a compact α-helix / β-sheet fold. Due to its small size and well-characterized structure, cambrin is commonly used as an introductory example. It's short sequence allows predictions to complete quickly, making it well suited for tutorial.
+It contains three disulfide bonds (Cys3–Cys40, Cys4–Cys32, Cys16–Cys26) and forms a compact α-helix / β-sheet fold. Because of its small size and well-characterized structure, crambin is commonly used as an introductory example. Its short sequence allows predictions to complete quickly, making it well suited to this tutorial.
 
 
 
@@ -70,9 +70,9 @@ You should see the input form:
 
 ![Empty Protein Structure Prediction form](./images/03_form_empty.png "Empty Protein Structure Prediction form")
 
-The fields are documented in detail in the [Quick Reference](/quick_references/services/predict_structure_service). For this tutorial we'll fill in only the basics.
+The fields are described in detail in the [Quick Reference](/quick_references/services/predict_structure_service). This tutorial uses only the basic settings required to run the example.
 
-## Step 4 — Fill in the form
+## Step 4 — Fill in the input form
 
 | Field | Value |
 |---|---|
@@ -85,23 +85,23 @@ The fields are documented in detail in the [Quick Reference](/quick_references/s
 | **Output Folder** | click the folder selector, choose `tutorial-crambin` |
 | **Job Name** | type `crambin-auto` (the field is pre-filled with `PredictStructure-<timestamp>` — overwrite it) |
 
-A submission creates a **job** with the name you enter. The job appears in your workspace as an object at `<Output Folder>/<Job Name>` — for this tutorial, `tutorial-crambin/crambin-auto`. That object holds all job-related info: parameters, status, logs, and the prediction results.
+A submission creates a **job** with the name you enter. The job appears in your workspace as an object at `<Output Folder>/<Job Name>`. In this tutorial, that path is `tutorial-crambin/crambin-auto`. The object contains the job parameters, status, logs, and the prediction results.
 
-The *Result location* bar directly below the Job Name field previews this path as you type. The form runs live validation; the **Submit** button enables once you have an Output Folder, a Job Name, at least one biomolecular input, and — for Boltz / OpenFold / Chai — an MSA file.
+The *Result location* bar directly below the Job Name field previews this path as you type. The form performs live validation, and the **Submit** button becomes enabled once you have specified an output folder, a job name, at least one biomolecular input, and, for Boltz, OpenFold, or Chai, an MSA file.
 
 ![Form filled with example values showing the Result location preview](./images/03b_form_filled.png "Form filled with example values showing the Result location preview")
 
-> **Why `Auto`?** With only a protein and no MSA, the auto-selector picks **ESMFold** — it's the only engine that runs without an MSA on a single sequence (see the [tool selector decision tree](/quick_references/services/predict_structure_service#prediction-tool)). If you pick `boltz` or `chai` without uploading an MSA, the submission will fail with a policy error.
+> **Why `Auto`?** With only a protein and no MSA, the auto-selector chooses **ESMFold**, which is the only engine in this example that can run without an MSA on a single sequence (see the [tool selector decision tree](/quick_references/services/predict_structure_service#prediction-tool)). If you select `boltz` or `chai` without uploading an MSA, the submission fails with a policy error.
 
 ## Step 5 — Submit
 
-Click **Submit** at the bottom of the form. A confirmation toast appears in the lower-left and the new job shows up in **My Jobs** (top-right user menu).
+Click **Submit** at the bottom of the form. A confirmation toast appears in the lower-left corner, and the new job appears in **My Jobs** in the top-right user menu.
 
 ![Job submission confirmation toast](./images/04_submit_toast.png "Job submission confirmation toast")
 
 ## Step 6 — Wait
 
-Crambin via ESMFold on a GPU runs in roughly 15–60 seconds plus queue time. Refresh the Jobs list, or open the job to see its live status:
+For this example, ESMFold typically completes a crambin prediction in about 15–60 seconds on a GPU, plus queue time. Refresh the Jobs list or open the job to view its current status:
 
 | Status | Meaning |
 |---|---|
@@ -112,7 +112,7 @@ Crambin via ESMFold on a GPU runs in roughly 15–60 seconds plus queue time. Re
 
 ## Step 7 — Open the result
 
-Click the completed job. The workspace object (`tutorial-crambin/crambin-auto`) opens with this layout (full reference: [Quick Reference → Output Results](/quick_references/services/predict_structure_service#output-results)):
+Click the completed job. The workspace object (`tutorial-crambin/crambin-auto`) opens with the following layout (for the full reference, see [Quick Reference → Output Results](/quick_references/services/predict_structure_service#output-results)):
 
 ```
 crambin-auto/
@@ -134,7 +134,7 @@ crambin-auto/
 
 ### View the structure
 
-Click `report.html` and choose **View** from the Action Bar. A 3D viewer opens (3Dmol.js) showing crambin folded into its characteristic small α/β fold, with three disulfide bridges visible if you toggle the **sticks** representation for cysteines.
+Click `report.html` and choose **View** from the Action Bar. A 3D viewer opens in 3Dmol.js and shows crambin folded into its characteristic small α/β structure. Three disulfide bridges are visible if you toggle the **sticks** representation for cysteines.
 
 ![3Dmol.js view of crambin from report.html with three disulfides visible](./images/05_crambin_3d.png "3Dmol.js view of crambin from report.html with three disulfides visible")
 
@@ -154,15 +154,15 @@ Open `reports/confidence.json` (or look at the panel beneath the 3D viewer in `r
 
 Interpreting these:
 
-- `plddt_mean = 87.4` — high confidence. A value above 80 on a 46-residue monomer says ESMFold is confident across the whole chain.
-- `plddt_min = 71.2` — even the worst residue is in the "confident" band (>70). No disordered tails.
-- `ptm = 0.81` — the overall fold is almost certainly right.
+- `plddt_mean = 87.4` — high confidence. A value above 80 on a 46-residue monomer indicates that ESMFold is confident across the whole chain.
+- `plddt_min = 71.2` — even the lowest-scoring residue remains in the confident range (>70), with no obvious disordered tails.
+- `ptm = 0.81` — the overall fold is highly likely to be correct.
 
-If you compare the rank-1 PDB to the experimental `1CRN` structure (e.g. via TM-align), you should see a TM-score above 0.9 — ESMFold reproduces crambin essentially perfectly. As noted above, this isn't a stress test; it confirms the pipeline works end-to-end.
+If you compare the rank-1 PDB to the experimental `1CRN` structure, for example by using TM-align, the TM-score should be above 0.9. This indicates that ESMFold reproduces crambin essentially perfectly. As noted above, this is not intended as a stress test; it confirms that the workflow is functioning end to end.
 
 ### Download the structure
 
-From the Action Bar, choose **Download** on `predictions/rank_1.pdb` to save it locally. Open it in [PyMOL](https://pymol.org/), [ChimeraX](https://www.cgl.ucsf.edu/chimerax/), [Mol\*](https://molstar.org/viewer/), or any PDB viewer.
+From the Action Bar, choose **Download** for `predictions/rank_1.pdb` to save it locally. Open it in [PyMOL](https://pymol.org/), [ChimeraX](https://www.cgl.ucsf.edu/chimerax/), [Mol\*](https://molstar.org/viewer/), or any other PDB viewer.
 
 ## What to try next
 
@@ -177,7 +177,7 @@ From the Action Bar, choose **Download** on `predictions/rank_1.pdb` to save it 
 
 ### `No inputs supplied`
 
-You hit Submit with the Protein, DNA, RNA, ligand, and SMILES fields all empty. Provide at least one.
+Submit was attempted with the Protein, DNA, RNA, ligand, and SMILES fields all empty. Provide at least one input.
 
 ### `Invalid ligand CCD code 'ABCD'`
 
@@ -185,7 +185,7 @@ CCD codes are 1–3 alphanumeric characters. Use `ATP`, not `ATPase`.
 
 ### `Boltz / OpenFold / Chai require an MSA`
 
-Set **MSA Source** to *Precomputed MSA from Workspace* and upload an `.a3m`, `.sto`, or `.pqt` file, or set it to *Use MSA Server or Service* to have BV-BRC compute the MSA with ColabFold. **Auto** and **ESMFold** don't need an MSA at all.
+Set **MSA Source** to *Precomputed MSA from Workspace* and upload an `.a3m`, `.sto`, or `.pqt` file, or set it to *Use MSA Server or Service* to have BV-BRC compute the MSA with ColabFold. **Auto** and **ESMFold** do not require an MSA.
 
 ### Job is queued for a long time
 

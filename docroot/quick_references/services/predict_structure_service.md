@@ -27,7 +27,7 @@ The **Protein Structure Prediction** submenu option under the **Services** main 
 
 The form is organized as **Prediction Tool**, **Biomolecular Inputs**, **Ligands**, **Multiple Sequence Alignment**, and **Output**. Fields that are not relevant to the selected engine are still visible but ignored (and the help text notes which engines use them).
 
-## Prediction Tool
+## Prediction Tool {#prediction-tool}
 
 Choose the structure prediction engine. Leaving this at **Auto** lets the service pick the best available tool given your inputs.
 
@@ -51,7 +51,7 @@ Choose the structure prediction engine. Leaving this at **Auto** lets the servic
 | ✓ | ✓ | ✓ | Boltz → OpenFold → Chai |
 | — | DNA / RNA only | any | Boltz → OpenFold → Chai |
 
-## Biomolecular Inputs
+## Biomolecular Inputs {#biomolecular-inputs}
 
 Supply at least one FASTA file with **Protein**, **DNA**, or **RNA** sequences. One file per sequence type. Files come from your workspace.
 
@@ -67,7 +67,7 @@ DNA sequence(s) in FASTA format. Used as co-folding partners with proteins. **To
 
 RNA sequence(s) in FASTA format. Same engine support as DNA.
 
-## Ligands
+## Ligands {#ligands}
 
 Optional small-molecule ligands to co-fold with the proteins. Supported by Boltz-2, OpenFold 3, and Chai-1.
 
@@ -76,7 +76,7 @@ The form provides one ligand input with a **Notation** selector — pick **CCD c
 - **CCD codes** — three-letter Chemical Component Dictionary codes, e.g. `ATP`, `NAD`, `HEM`. Glycans use their CCD codes here too (`NAG`, `MAN`, `BMA`); there is no separate glycan input. Each entry must be 1–3 alphanumeric characters.
 - **SMILES strings** — arbitrary small molecules expressed as SMILES (e.g. `CCO` for ethanol). Live syntactic validation surfaces the first invalid line.
 
-## Multiple Sequence Alignment
+## Multiple Sequence Alignment {#multiple-sequence-alignment}
 
 The **MSA Source** selector controls how the multiple sequence alignment is supplied:
 
@@ -96,7 +96,7 @@ Accepted formats for uploaded MSAs:
 
 ESMFold ignores any MSA. AlphaFold 2 ignores uploaded MSAs and always builds its own from BV-BRC's local databases.
 
-## Output
+## Output {#output}
 
 Every submission creates a **job** with the name you give it. A workspace object named after the job is created inside the Output Folder and holds all job-related info — parameters, status, logs, and the prediction results themselves. The full workspace path is shown in the form's *Result location* bar:
 
@@ -112,7 +112,7 @@ The workspace folder where the job will be created. Must already exist, or creat
 
 Identifier for this run. Used as the workspace object name. Pre-filled with `PredictStructure-<YYMMDD>-<HHMMSS>` so a fresh form always has a unique default; replace it with something descriptive (e.g. `crambin-esmfold`) when it helps.
 
-## Output Results
+## Output Results {#output-results}
 
 Every job produces a normalized directory tree, regardless of the underlying engine. This makes downstream comparison and visualization possible without per-tool branching.
 
