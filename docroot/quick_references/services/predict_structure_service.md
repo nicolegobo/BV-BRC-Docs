@@ -51,7 +51,7 @@ Choose the structure prediction engine. Leaving this at **Auto** lets the servic
 | ✓ | ✓ | ✓ | Boltz → OpenFold → Chai |
 | — | DNA / RNA only | any | Boltz → OpenFold → Chai |
 
-## Biomolecular Inputs {#biomolecular-inputs}
+## Biomolecular Inputs
 
 Supply at least one FASTA file with **Protein**, **DNA**, or **RNA** sequences. One file per sequence type. Files come from your workspace.
 
@@ -67,7 +67,7 @@ DNA sequence(s) in FASTA format. Used as co-folding partners with proteins. **To
 
 RNA sequence(s) in FASTA format. Same engine support as DNA.
 
-## Ligands {#ligands}
+## Ligands
 
 Optional small-molecule ligands to co-fold with the proteins. Supported by Boltz-2, OpenFold 3, and Chai-1.
 
@@ -76,7 +76,7 @@ The form provides one ligand input with a **Notation** selector — pick **CCD c
 - **CCD codes** — three-letter Chemical Component Dictionary codes, e.g. `ATP`, `NAD`, `HEM`. Glycans use their CCD codes here too (`NAG`, `MAN`, `BMA`); there is no separate glycan input. Each entry must be 1–3 alphanumeric characters.
 - **SMILES strings** — arbitrary small molecules expressed as SMILES (e.g. `CCO` for ethanol). Live syntactic validation surfaces the first invalid line.
 
-## Multiple Sequence Alignment {#multiple-sequence-alignment}
+## Multiple Sequence Alignment
 
 The **MSA Source** selector controls how the multiple sequence alignment is supplied:
 
